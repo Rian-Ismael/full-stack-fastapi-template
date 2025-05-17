@@ -13,11 +13,14 @@ from app.models import (
 router = APIRouter(tags=["private"], prefix="/private")
 
 
-class PrivateUserCreate(BaseModel):
+class EPrivateUserCreate:
+    is_verified: bool = False
+
+
+class PrivateUserCreate(BaseModel, EPrivateUserCreate):
     email: str
     password: str
     full_name: str
-    is_verified: bool = False
 
 
 @router.post("/users/", response_model=UserPublic)
