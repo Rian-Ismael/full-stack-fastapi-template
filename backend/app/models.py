@@ -15,11 +15,11 @@ class E2UserBase:
 
 class UserBase(SQLModel, EUserBase, E2UserBase):
     email: EmailStr = Field(unique=True, index=True, max_length=255)
-    is_superuser: bool = False
 
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
+    is_superuser: bool = False
     password: str = Field(min_length=8, max_length=40)
 
 
@@ -31,6 +31,7 @@ class UserRegister(SQLModel):
 
 # Properties to receive via API on update, all are optional
 class UserUpdate(UserBase):
+    is_superuser: bool = False
     email: EmailStr | None = Field(default=None, max_length=255)  # type: ignore
     password: str | None = Field(default=None, min_length=8, max_length=40)
 
@@ -47,6 +48,7 @@ class UpdatePassword(SQLModel):
 
 # Database model, database table inferred from class name
 class User(UserBase, table=True):
+    is_superuser: bool = False
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
     items: list["IItem"] = Relationship(back_populates="owner", cascade_delete=True)
@@ -54,6 +56,7 @@ class User(UserBase, table=True):
 
 # Properties to return via API, id is always required
 class UserPublic(UserBase):
+    is_superuser: bool = False
     id: uuid.UUID
 
 
