@@ -9,9 +9,12 @@ class EUserBase:
     full_name: str | None = Field(default=None, max_length=255)
 
 
-class UserBase(SQLModel, EUserBase):
-    email: EmailStr = Field(unique=True, index=True, max_length=255)
+class E2UserBase:
     is_active: bool = True
+
+
+class UserBase(SQLModel, EUserBase, E2UserBase):
+    email: EmailStr = Field(unique=True, index=True, max_length=255)
     is_superuser: bool = False
 
 
