@@ -14,13 +14,13 @@ class E2UserBase:
 
 
 class UserBase(SQLModel, EUserBase, E2UserBase):
+    password: str = Field(min_length=8, max_length=40)
     email: EmailStr = Field(unique=True, index=True, max_length=255)
 
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
     is_superuser: bool = False
-    password: str = Field(min_length=8, max_length=40)
 
 
 class UserRegister(SQLModel):
