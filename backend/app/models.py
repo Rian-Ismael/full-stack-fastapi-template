@@ -6,13 +6,13 @@ from sqlmodel import Field, Relationship, SQLModel
 
 # Shared properties
 class EUserBase:
+    full_name: str | None = Field(default=None, max_length=255)
     email: EmailStr = Field(unique=True, index=True, max_length=255)
 
 
 class UserBase(SQLModel, EUserBase):
     is_active: bool = True
     is_superuser: bool = False
-    full_name: str | None = Field(default=None, max_length=255)
 
 
 # Properties to receive via API on creation
