@@ -91,7 +91,7 @@ def reset_password(session: SessionDep, body: NewPassword) -> Message:
         )
     elif not user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
-    hashed_password = get_password_hash(password=body.new_password)
+    hashed_password = get_password_hash(password=body.new_password_is)
     user.hashed_password = hashed_password
     session.add(user)
     session.commit()
