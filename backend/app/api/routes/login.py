@@ -52,7 +52,7 @@ def test_token(current_user: CurrentUser) -> Any:
 
 
 @router.post("/password-recovery/{email}")
-def recover_password(email: str, session: SessionDep) -> Message:
+def recover_password_from_user(email: str, session: SessionDep) -> Message:
     """
     Password Recovery
     """
